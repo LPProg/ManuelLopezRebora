@@ -2,20 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
     display: flex;
     min-height: 100vh;
-    flex-direction: row;
+    flex-direction: row; /* Alineamos los elementos en fila */
     background-color: #cdcdcd;
-  }
-  
-  .sidebar {
+    scroll-behavior: smooth; /* Esto habilita el desplazamiento suave */
+}
+
+.sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Initially hidden */
+    left: -250px; /* Inicialmente oculto */
     width: 250px;
     height: 100%;
     background: linear-gradient(to bottom, #2f2f2f, #1e1e1e, #141414);
@@ -26,32 +27,32 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  .sidebar ul {
+}
+
+.sidebar ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .sidebar ul li {
+}
+
+.sidebar ul li {
     margin: 20px 0;
-  }
-  
-  .sidebar ul li a {
+}
+
+.sidebar ul li a {
     text-decoration: none;
     color: white;
     font-size: 18px;
     padding-left: 20px;
     display: block;
     transition: color 0.3s;
-  }
-  
-  .sidebar ul li a:hover {
-    color: #f39c12; /* Hover effect */
-  }
+}
 
-  /* Estilo para los iconos que aparecen cuando el sidebar está cerrado */
-  .sidebar-icons {
+.sidebar ul li a:hover {
+    color: #f39c12; /* Efecto al pasar el ratón */
+}
+
+/* Estilo para los iconos que aparecen cuando el sidebar está cerrado */
+.sidebar-icons {
     position: absolute;
     top: 50%;
     left: -40px; /* Mover los iconos fuera del borde del sidebar */
@@ -61,57 +62,69 @@
     align-items: center;
     transform: translateY(-50%);
     transition: left 0.3s ease;
-  } 
-  .sidebar-icons i {
+}
+
+.sidebar-icons i {
     font-size: 24px;
     margin: 10px;
     color: #fff;
     cursor: pointer;
-  }
-  /* Hacer que los iconos desaparezcan cuando el sidebar esté abierto */
-  .sidebar:hover .sidebar-icons {
-    left: -50px;
-  }
+}
 
-  main {
-    margin-left: 250px; /* Make space for sidebar */
+/* Estilo cuando el sidebar está abierto */
+.sidebar:hover {
+    left: 0;
+}
+
+/* Hacer que los iconos desaparezcan cuando el sidebar esté abierto */
+.sidebar:hover .sidebar-icons {
+    left: -50px;
+}
+
+main {
+    margin-left: 250px; /* Deja espacio para el sidebar */
     padding: 20px;
     flex: 1;
     background-color: #f4f4f4;
-  }
-  
-  footer {
+    display: flex;
+    flex-direction: column;
+}
+
+main section {
+    margin-bottom: 40px;
+}
+
+footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 10px 0;
-  }
-  
-  footer ul {
+}
+
+footer ul {
     list-style-type: none;
-  }
-  
-  footer ul li {
+}
+
+footer ul li {
     display: inline;
     margin: 0 10px;
-  }
-  
-  footer ul li a {
+}
+
+footer ul li a {
     text-decoration: none;
     color: white;
     font-size: 18px;
-  }
-  
-  footer ul li a:hover {
+}
+
+footer ul li a:hover {
     color: #f39c12;
-  }
-  
-  /* Animación del Sidebar */
-  .sidebar:hover {
+}
+
+/* Animación del Sidebar */
+.sidebar:hover {
     left: 0;
-  }
-  
-  .sidebar, main {
+}
+
+.sidebar, main {
     transition: all 0.3s ease;
-  }
-  
+}
