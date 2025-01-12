@@ -1,3 +1,18 @@
+* {
+    border: 0; /* Elimina cualquier borde por defecto */
+}
+
+html, body {
+    height: 100%;
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar rellenos predeterminados */
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
 /* Estilo base del sidebar */
 .sidebar {
     position: fixed;
@@ -52,49 +67,69 @@
     display: flex; /* Para alinear ícono y texto en línea */
     align-items: center; /* Centrar verticalmente ícono y texto */
     transition: color 0.3s;
+    width: 75%;
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center; /* Alineamos el ícono y el texto */
+    justify-content: center; /* Centrado en el botón */
+    background-color: #6a1b9a; /* Morado oscuro como color de fondo */
+    color: white; /* Color del texto */
+    font-size: 18px; /* Tamaño del texto */
+    padding: 12px 20px; /* Espaciado dentro del botón */
+    border-radius: 25px; /* Bordes redondeados */
+    text-decoration: none; /* Quitamos el subrayado */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+    width: 80%; /* Asegura que los botones no ocupen todo el ancho */
+    box-sizing: border-box;
+    cursor: pointer; /* Cambia el cursor para indicar interactividad */
 }
 
 .sidebar ul li a i {
-    margin-right: 10px; /* Espacio entre ícono y texto */
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
     font-size: 20px; /* Tamaño del ícono */
-    color: #f39c12; /* Color del ícono */
+    color: white; /* Color del ícono */
+    transition: color 0.3s ease; /* Transición para cambiar el color del ícono */
 }
 
 .sidebar ul li a:hover {
-    color: #f39c12; /* Efecto hover en el texto */
+    background-color: #9b4d96; /* Morado más claro al pasar el ratón */
+    transform: scale(1.05); /* Efecto de aumento de tamaño */
 }
 
 .sidebar ul li a:hover i {
-    color: #fff; /* Cambiar el color del ícono al pasar el ratón */
+    color: #f39c12; /* Color dorado al pasar el ratón */
 }
 
 /* Contenido principal */
 main {
-    margin-left: 0; /* No deja espacio cuando el sidebar está oculto */
+    margin-left: 250px ; /* Margen izquierdo para el sidebar */
     padding: 20px;
     flex: 1;
-    background-color: #f4f4f4;
+    background-color: #6a1b9a;
     display: flex;
     flex-direction: column;
-    transition: margin-left 0.3s ease;
-}
-
-/* Cuando el sidebar está activo, mover el main */
-main.active {
-    margin-left: 250px;
 }
 
 /* Estilo general para las secciones */
 section {
     padding: 20px;
     margin-bottom: 20px;
-    color: #333;
-    background-color: #f4f4f4;
+    color: white;
+    background: linear-gradient(to bottom, #4e4e4e, #323232, #141414);
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+section:hover {
+    filter: brightness(1.2); /* Aumenta el brillo para hacerlo más claro */
 }
 
 footer {
+    margin-left: 150px;
     background-color: #333;
     color: white;
     text-align: center;
