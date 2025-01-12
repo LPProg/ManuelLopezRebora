@@ -8,9 +8,9 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     min-height: 100vh;
-    flex-direction: row; /* Alineamos los elementos en fila */
+    flex-direction: column;
     background-color: #cdcdcd;
-    scroll-behavior: smooth; /* Esto habilita el desplazamiento suave */
+    overflow-x: hidden;
 }
 
 .sidebar {
@@ -26,7 +26,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    z-index: 1000;
+}
+
+/* Estilo para los iconos que aparecen cuando el sidebar está cerrado */
+.sidebar-icons {
+    position: absolute;
+    top: 50%;
+    left: -40px; /* Mover los iconos fuera del borde del sidebar */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+    transition: left 0.3s ease;
+    z-index: 1010;
+}
+
+.sidebar-icons i {
+    font-size: 24px;
+    margin: 10px;
+    color: #fff;
+    cursor: pointer;
 }
 
 .sidebar ul {
@@ -51,26 +73,6 @@ body {
     color: #f39c12; /* Efecto al pasar el ratón */
 }
 
-/* Estilo para los iconos que aparecen cuando el sidebar está cerrado */
-.sidebar-icons {
-    position: absolute;
-    top: 50%;
-    left: -40px; /* Mover los iconos fuera del borde del sidebar */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-50%);
-    transition: left 0.3s ease;
-}
-
-.sidebar-icons i {
-    font-size: 24px;
-    margin: 10px;
-    color: #fff;
-    cursor: pointer;
-}
-
 /* Estilo cuando el sidebar está abierto */
 .sidebar:hover {
     left: 0;
@@ -90,13 +92,13 @@ main {
     flex-direction: column;
 }
 
-.box {
-    background: linear-gradient(to bottom, #2f2f2f, #1e1e1e, #141414);
+section {
     padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    color: white;
+    margin-bottom: 20px; /* Espacio entre secciones */
+    color: #333;
+    background-color: #f4f4f4; /* Fondo claro para contrastar */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 main section {
