@@ -13,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 /* Estilo base del sidebar */
 .sidebar {
     position: fixed;
@@ -20,87 +21,87 @@ body {
     width: 250px;
     height: 100%;
     background: linear-gradient(to bottom, #2f2f2f, #1e1e1e, #141414);
-    transition: left 0.3s ease; /* Transición suave */
     padding-top: 20px;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center; /* Centramos los botones verticalmente */
     z-index: 1000;
 }
 
-/* Estilo para los iconos del borde */
-.sidebar-icons {
-    position: absolute;
-    top: 50%;
-    left: 0; /* Siempre visible en el borde */
+/* Estilo para los elementos de la lista (el contenedor del botón) */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 75%; /* Aseguramos que los botones ocupen el ancho completo */
     display: flex;
     flex-direction: column;
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center;
+}
+
+/* Estilo del botón */
+.sidebar .button {
+    display: block;
+    width: 200px; /* Aumento del tamaño del botón */
+    height: 60px; /* Aumento de la altura del botón */
+    background-color: #6a1b9a;
+    color: transparent; /* El color del texto será transparente inicialmente */
+    padding: 15px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(-50%);
-    z-index: 1010;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
+    transition: transform 0.5s ease;
+    perspective: 1000px; /* Hacer el contenedor en 3D */
+    margin-bottom: 20px; /* Espacio entre los botones */
 }
 
-.sidebar-icons i {
-    font-size: 24px;
-    margin: 10px;
-    color: #fff;
-    transition: color 0.3s ease;
-}
-
-.sidebar-icons i:hover {
-    color: #f39c12;
-}
-
-.sidebar ul li {
-    margin: 20px 0;
-}
-
-.sidebar ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    padding-left: 10px; /* Espacio entre ícono y texto */
-    display: flex; /* Para alinear ícono y texto en línea */
-    align-items: center; /* Centrar verticalmente ícono y texto */
-    transition: color 0.3s;
-    width: 75%;
-    margin-bottom: 20px;
-}
-
-.sidebar ul li a {
+/* El contenedor que envuelve icono y texto */
+.sidebar .button .icon,
+.sidebar .button .text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    align-items: center; /* Alineamos el ícono y el texto */
-    justify-content: center; /* Centrado en el botón */
-    background-color: #6a1b9a; /* Morado oscuro como color de fondo */
-    color: white; /* Color del texto */
-    font-size: 18px; /* Tamaño del texto */
-    padding: 12px 20px; /* Espaciado dentro del botón */
-    border-radius: 25px; /* Bordes redondeados */
-    text-decoration: none; /* Quitamos el subrayado */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
-    width: 80%; /* Asegura que los botones no ocupen todo el ancho */
-    box-sizing: border-box;
-    cursor: pointer; /* Cambia el cursor para indicar interactividad */
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
 }
 
-.sidebar ul li a i {
-    margin-right: 10px; /* Espacio entre el ícono y el texto */
-    font-size: 20px; /* Tamaño del ícono */
-    color: white; /* Color del ícono */
-    transition: color 0.3s ease; /* Transición para cambiar el color del ícono */
+/* El texto está oculto por defecto */
+.sidebar .button .text {
+    opacity: 0;
+    color: white;
+    font-size: 20px; /* Aumento del tamaño del texto */
 }
 
-.sidebar ul li a:hover {
-    background-color: #9b4d96; /* Morado más claro al pasar el ratón */
-    transform: scale(1.05); /* Efecto de aumento de tamaño */
+/* Efecto flip cuando el ratón pasa por encima del botón */
+.sidebar .button:hover {
+    transform: rotateY(180deg); /* Flip 3D en el eje Y */
 }
 
-.sidebar ul li a:hover i {
-    color: #f39c12; /* Color dorado al pasar el ratón */
+.sidebar .button:hover .icon {
+    opacity: 0; /* Oculta el ícono cuando se hace el flip */
+}
+
+.sidebar .button:hover .text {
+    opacity: 1; /* Muestra el texto cuando se hace el flip */
+}
+
+/* Icono dentro del botón */
+.sidebar .button .icon i {
+    font-size: 30px; /* Aumento del tamaño del ícono */
+    color: white;
+    transition: opacity 0.3s ease;
 }
 
 /* Contenido principal */
