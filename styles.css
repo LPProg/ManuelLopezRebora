@@ -1,26 +1,11 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    background-color: #cdcdcd;
-    overflow-x: hidden;
-}
-
+/* Estilo base del sidebar */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Inicialmente oculto */
     width: 250px;
     height: 100%;
     background: linear-gradient(to bottom, #2f2f2f, #1e1e1e, #141414);
-    transition: all 0.3s ease;
+    transition: left 0.3s ease; /* Transición suave */
     padding-top: 20px;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -30,30 +15,29 @@ body {
     z-index: 1000;
 }
 
-/* Estilo para los iconos que aparecen cuando el sidebar está cerrado */
+/* Estilo para los iconos del borde */
 .sidebar-icons {
     position: absolute;
     top: 50%;
-    left: -40px; /* Mover los iconos fuera del borde del sidebar */
+    left: 0; /* Siempre visible en el borde */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transform: translateY(-50%);
-    transition: left 0.3s ease;
     z-index: 1010;
+    cursor: pointer;
 }
 
 .sidebar-icons i {
     font-size: 24px;
     margin: 10px;
     color: #fff;
-    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
+.sidebar-icons i:hover {
+    color: #f39c12;
 }
 
 .sidebar ul li {
@@ -64,45 +48,50 @@ body {
     text-decoration: none;
     color: white;
     font-size: 18px;
-    padding-left: 20px;
-    display: block;
+    padding-left: 10px; /* Espacio entre ícono y texto */
+    display: flex; /* Para alinear ícono y texto en línea */
+    align-items: center; /* Centrar verticalmente ícono y texto */
     transition: color 0.3s;
 }
 
+.sidebar ul li a i {
+    margin-right: 10px; /* Espacio entre ícono y texto */
+    font-size: 20px; /* Tamaño del ícono */
+    color: #f39c12; /* Color del ícono */
+}
+
 .sidebar ul li a:hover {
-    color: #f39c12; /* Efecto al pasar el ratón */
+    color: #f39c12; /* Efecto hover en el texto */
 }
 
-/* Estilo cuando el sidebar está abierto */
-.sidebar:hover {
-    left: 0;
+.sidebar ul li a:hover i {
+    color: #fff; /* Cambiar el color del ícono al pasar el ratón */
 }
 
-/* Hacer que los iconos desaparezcan cuando el sidebar esté abierto */
-.sidebar:hover .sidebar-icons {
-    left: -50px;
-}
-
+/* Contenido principal */
 main {
-    margin-left: 250px; /* Deja espacio para el sidebar */
+    margin-left: 0; /* No deja espacio cuando el sidebar está oculto */
     padding: 20px;
     flex: 1;
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
+    transition: margin-left 0.3s ease;
 }
 
+/* Cuando el sidebar está activo, mover el main */
+main.active {
+    margin-left: 250px;
+}
+
+/* Estilo general para las secciones */
 section {
     padding: 20px;
-    margin-bottom: 20px; /* Espacio entre secciones */
+    margin-bottom: 20px;
     color: #333;
-    background-color: #f4f4f4; /* Fondo claro para contrastar */
-    border-radius: 8px; /* Bordes redondeados opcionales */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-main section {
-    margin-bottom: 40px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 footer {
@@ -129,13 +118,4 @@ footer ul li a {
 
 footer ul li a:hover {
     color: #f39c12;
-}
-
-/* Animación del Sidebar */
-.sidebar:hover {
-    left: 0;
-}
-
-.sidebar, main {
-    transition: all 0.3s ease;
 }
