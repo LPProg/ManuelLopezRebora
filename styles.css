@@ -161,6 +161,18 @@ main {
 .left {
     transform: rotateY(-90deg) translateZ(150px); /* Atrás */
 }
+.top {
+    transform: rotateX(90deg) translateZ(150px); /* Arriba */
+    background: url('path/to/your/photo.jpg') no-repeat center center;
+    background-size: cover;
+}
+.bottom {
+    transform: rotateX(-90deg) translateZ(150px); /* Abajo */
+    background-color: #6a1b9a;
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+}
 
 /* Texto dentro de las caras */
 .face {
