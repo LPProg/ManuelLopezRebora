@@ -43,3 +43,41 @@ document.addEventListener('mouseup', () => {
     isDragging = false; // Termina el arrastre
     cube.style.transition = 'transform 0.3s ease-out'; // Restaura la transición suave al detener
 });
+
+function flipCard(face) {
+    const cube = document.querySelector('.cube');
+    const allFaces = document.querySelectorAll('.face');
+    
+    // Primero, ocultamos el contenido de todas las caras
+    allFaces.forEach(face => {
+        face.classList.remove('active');
+    });
+
+    // Luego, activamos la cara seleccionada
+    const selectedFace = document.querySelector(`.${face}`);
+    selectedFace.classList.add('active');
+    
+    // El cubo hace flip hacia la cara seleccionada
+    switch(face) {
+        case 'front':
+            cube.style.transform = 'rotateY(0deg)';
+            break;
+        case 'right':
+            cube.style.transform = 'rotateY(-90deg)';
+            break;
+        case 'back':
+            cube.style.transform = 'rotateY(-180deg)';
+            break;
+        case 'left':
+            cube.style.transform = 'rotateY(90deg)';
+            break;
+        case 'top':
+            cube.style.transform = 'rotateX(90deg)';
+            break;
+        case 'bottom':
+            cube.style.transform = 'rotateX(-90deg)';
+            break;
+        default:
+            break;
+    }
+}
