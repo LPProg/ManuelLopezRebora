@@ -7,11 +7,9 @@ html, body {
     margin: 0; /* Eliminar márgenes predeterminados */
     padding: 0; /* Eliminar rellenos predeterminados */
     box-sizing: border-box;
-}
-
-body {
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* Evita que el contenido se desborde */
 }
 
 /* Estilo base del sidebar */
@@ -110,24 +108,52 @@ main {
     margin-left: 250px ; /* Margen izquierdo para el sidebar */
     padding: 20px;
     flex: 1;
-    background-color: #6a1b9a;
+    background: linear-gradient(135deg, #4a0f67, #6a1b9a, #8c2eb8);
     display: flex;
     flex-direction: column;
 }
-
-/* Estilo general para las secciones */
-section {
-    padding: 20px;
-    margin-bottom: 20px;
-    color: white;
-    background: linear-gradient(to bottom, #4e4e4e, #323232, #141414);
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease; /* Transición suave */
+.scene{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
 }
 
-section:hover {
-    filter: brightness(1.2); /* Aumenta el brillo para hacerlo más claro */
+.cube{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate 10s infinite linear;
+}
+
+.face{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    backface-visibility: hidden;
+}
+
+/* Posicionamiento de las caras */
+.front {
+    transform: rotateY(0deg) translateZ(150px); /* Frente */
+}
+.right {
+    transform: rotateY(90deg) translateZ(150px); /* Derecha */
+}
+.back {
+    transform: rotateY(180deg) translateZ(150px); /* Atrás */
+}
+.left {
+    transform: rotateY(-90deg) translateZ(150px); /* Atrás */
 }
 
 footer {
@@ -155,4 +181,23 @@ footer ul li a {
 
 footer ul li a:hover {
     color: #f39c12;
+}
+
+/* Animación de rotación (actualizada) */
+@keyframes rotateCube {
+    0% {
+        transform: rotateY(0deg); /* Mostrar el frente */
+    }
+    25% {
+        transform: rotateY(-90deg); /* Mostrar la cara derecha */
+    }
+    50% {
+        transform: rotateY(-180deg); /* Mostrar la cara trasera */
+    }
+    75% {
+        transform: rotateY(-270deg); /* Mostrar la cara izquierda */
+    }
+    100% {
+        transform: rotateY(-360deg); /* Volver al frente */
+    }
 }
