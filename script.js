@@ -1,51 +1,51 @@
-// Selecciona el cubo
+let isMouseDown = false; // Controla si el mouse está presionado para arrastrar el cubo
+let lastClickTime = 0; // Almacena el tiempo del último clic
+let clickThreshold = 300; // Límite de tiempo para considerar un doble clic (en ms)
+
 const cube = document.querySelector('.cube');
+let currentRotationX = 0;
+let currentRotationY = 0;
 
-// Variables para almacenar la rotación
-let rotationX = 0; // Eje X
-let rotationY = 0; // Eje Y
-let isDragging = false; // Estado para verificar si el usuario está arrastrando
-let lastX = 0; // Última posición del ratón en X
-let lastY = 0; // Última posición del ratón en Y
+// Función para manejar la rotación del cubo con el mouse
+function rotateCube(e) {
+    if (!isMouseDown) return;
 
-// Maneja el clic y el arrastre
-cube.addEventListener('mousedown', (event) => {
-    isDragging = true; // Comienza el arrastre
-    lastX = event.clientX; // Guarda la posición inicial X
-    lastY = event.clientY; // Guarda la posición inicial Y
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    // Calculamos la diferencia con la posición inicial
+    const deltaX = mouseX - lastMousePosition.x;
+    const deltaY = mouseY - lastMousePosition.y;
 
-    // Desactiva la transición cuando se empieza a arrastrar
-    cube.style.transition = 'none';
-});
+    // Actualizamos la rotación del cubo
+    currentRotationX += deltaY * 0.5; // Controlar la velocidad de rotación
+    currentRotationY -= deltaX * 0.5; // Controlar la velocidad de rotación
 
-// Maneja el movimiento del ratón mientras se arrastra
-document.addEventListener('mousemove', (event) => {
-    if (!isDragging) return; // Solo se ejecuta si se está arrastrando el ratón
+    // Aplicamos la rotación en 3D
+    cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
 
-    // Calcula el cambio en la posición del ratón
-    const deltaX = event.clientX - lastX;
-    const deltaY = event.clientY - lastY;
+    // Actualizamos la posición inicial del mouse
+    lastMousePosition = { x: mouseX, y: mouseY };
+}
 
-    // Actualiza la rotación del cubo en función del movimiento del ratón
-    rotationY += deltaX * 0.2; // Controla la velocidad del giro en Y
-    rotationX -= deltaY * 0.2; // Controla la velocidad del giro en X
+// Función que se activa al hacer clic sobre una cara
+function handleClick(e, face) {
+    // Obtenemos el tiempo actual del clic
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - lastClickTime;
 
-    // Actualiza la transformación del cubo
-    cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+    // Si el tiempo entre clics es menor que el umbral, es un doble clic
+    if (timeDifference < clickThreshold) {
+        // Realizamos el flip
+        flipCard(face);
+    }
 
-    // Actualiza la última posición del ratón
-    lastX = event.clientX;
-    lastY = event.clientY;
-});
+    // Guardamos el tiempo del clic actual
+    lastClickTime = currentTime;
+}
 
-// Detiene el arrastre cuando se suelta el ratón
-document.addEventListener('mouseup', () => {
-    isDragging = false; // Termina el arrastre
-    cube.style.transition = 'transform 0.3s ease-out'; // Restaura la transición suave al detener
-});
-
+// Función que maneja el flip de las caras
 function flipCard(face) {
-    const cube = document.querySelector('.cube');
     const allFaces = document.querySelectorAll('.face');
     
     // Primero, ocultamos el contenido de todas las caras
@@ -56,28 +56,31 @@ function flipCard(face) {
     // Luego, activamos la cara seleccionada
     const selectedFace = document.querySelector(`.${face}`);
     selectedFace.classList.add('active');
-    
-    // El cubo hace flip hacia la cara seleccionada
-    switch(face) {
-        case 'front':
-            cube.style.transform = 'rotateY(0deg)';
-            break;
-        case 'right':
-            cube.style.transform = 'rotateY(-90deg)';
-            break;
-        case 'back':
-            cube.style.transform = 'rotateY(-180deg)';
-            break;
-        case 'left':
-            cube.style.transform = 'rotateY(90deg)';
-            break;
-        case 'top':
-            cube.style.transform = 'rotateX(90deg)';
-            break;
-        case 'bottom':
-            cube.style.transform = 'rotateX(-90deg)';
-            break;
-        default:
-            break;
-    }
 }
+
+// Función para manejar el inicio del arrastre
+function handleMouseDown(e) {
+    isMouseDown = true;
+    lastMousePosition = { x: e.clientX, y: e.clientY };
+}
+
+// Función para manejar el fin del arrastre
+function handleMouseUp() {
+    isMouseDown = false;
+}
+
+// Función para manejar el movimiento del mouse (solo cuando se está arrastrando)
+function handleMouseMove(e) {
+    rotateCube(e);
+}
+
+// Asignamos los eventos de mouse
+document.querySelectorAll('.face').forEach(face => {
+    face.addEventListener('click', (e) => {
+        handleClick(e, face.classList[1]); // Usamos la clase para saber cuál cara es
+    });
+});
+
+document.querySelector('.scene').addEventListener('mousedown', handleMouseDown);
+document.querySelector('.scene').addEventListener('mouseup', handleMouseUp);
+document.querySelector('.scene').addEventListener('mousemove', handleMouseMove);
