@@ -95,6 +95,7 @@ body {
 
 .sidebar .button:hover .text {
     opacity: 1; /* Muestra el texto cuando se hace el flip */
+    transform: rotateY(180deg); /* Flip 3D en el eje Y */
 }
 
 /* Icono dentro del botón */
