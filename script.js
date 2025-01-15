@@ -8,6 +8,7 @@ const infoPanel = document.querySelector('.info-panel');
 let currentRotationX = 0;
 let currentRotationY = 0;
 let currentFace = '';
+let cubePosition = { x: 0, y: 0 };
 
 // Función para manejar la rotación del cubo con el mouse
 function rotateCube(e) {
@@ -22,7 +23,6 @@ function rotateCube(e) {
     currentRotationX += deltaY * 0.5;
     currentRotationY -= deltaX * 0.5;
 
-    // Mantener la rotación sin reiniciar
     cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg) translateX(-50px)`;
 
     lastMousePosition = { x: mouseX, y: mouseY };
@@ -54,18 +54,22 @@ function showContent(face) {
     infoPanel.classList.add('panel-active');
     infoPanel.classList.remove('panel-hidden');
 
-    // Mover el cubo ligeramente para dar espacio al panel
-    cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg) translateX(-20%)`;
+    // Mover el cubo a una posición aleatoria
+    moveCubeRandomly();
 
     // Actualizar la cara seleccionada
     currentFace = face;
+    openPanelOnOppositeSide();
 }
 
 // Cerrar el panel
 function closePanel() {
     infoPanel.classList.remove('panel-active');
     infoPanel.classList.add('panel-hidden');
+
+    // Restaurar el cubo a su posición original
     cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg) translateX(0)`;
+
     currentFace = '';
 }
 
@@ -88,6 +92,92 @@ function getContentForFace(face) {
             return '<h2>Información</h2><p>Seleccione una cara del cubo.</p>';
     }
 }
+
+// Función para obtener el tamaño del cubo considerando su rotación
+function getCubeBoundingBox() {
+    const cubeRect = cube.getBoundingClientRect();
+    const computedStyle = getComputedStyle(cube);
+    const width = parseFloat(computedStyle.width);
+    const height = parseFloat(computedStyle.height);
+
+    // Calcular las dimensiones del cubo considerando su rotación
+    const angleX = currentRotationX * Math.PI / 180;
+    const angleY = currentRotationY * Math.PI / 180;
+
+    // Las dimensiones del cubo no solo dependen de su tamaño base, sino también de la rotación
+    const rotatedWidth = width * Math.abs(Math.cos(angleY)) + height * Math.abs(Math.sin(angleY));
+    const rotatedHeight = height * Math.abs(Math.cos(angleX)) + width * Math.abs(Math.sin(angleX));
+
+    return { width: rotatedWidth, height: rotatedHeight };
+}
+
+
+// Mover el cubo a una posición aleatoria dentro de los límites de la escena sin que atraviese los bordes
+// Mover el cubo a una posición aleatoria dentro de los límites de la escena sin que atraviese los bordes
+function moveCubeRandomly() {
+    const sceneRect = document.querySelector('.scene').getBoundingClientRect(); // Obtener los límites de la escena
+    const cubeSize = getCubeBoundingBox(); // Obtener el tamaño del cubo (considerando su rotación)
+    
+    // Calcular el máximo valor X y Y para la posición del cubo
+    const maxX = sceneRect.width - cubeSize.width;
+    const maxY = sceneRect.height - cubeSize.height;
+
+    // Asegurarse de que el cubo no se salga de los límites de la escena
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    // Aplicar la posición aleatoria al cubo
+    cube.style.position = 'absolute';
+    cube.style.left = `${randomX}px`;
+    cube.style.top = `${randomY}px`;
+
+    // Actualizamos la posición del cubo
+    cubePosition = { x: randomX, y: randomY };
+}
+
+
+// Abrir el panel en el lado contrario al cubo, separado a 20px
+function openPanelOnOppositeSide() {
+    const panelWidth = infoPanel.offsetWidth;
+    const panelHeight = infoPanel.offsetHeight;
+
+    let panelLeft = 0;
+    let panelTop = 0;
+
+    // Determinar la posición del cubo para saber dónde colocar el panel
+    if (cubePosition.x < window.innerWidth / 2) {
+        panelLeft = cubePosition.x + getCubeBoundingBox().width + 20; // El panel va a la derecha del cubo
+    } else {
+        panelLeft = cubePosition.x - panelWidth - 20; // El panel va a la izquierda del cubo
+    }
+
+    if (cubePosition.y < window.innerHeight / 2) {
+        panelTop = cubePosition.y + getCubeBoundingBox().height + 20; // El panel va abajo del cubo
+    } else {
+        panelTop = cubePosition.y - panelHeight - 20; // El panel va arriba del cubo
+    }
+
+    // Asegurarse de que el panel no se desborde fuera de la ventana
+    if (panelLeft + panelWidth > window.innerWidth) {
+        panelLeft = window.innerWidth - panelWidth - 20;
+    }
+    if (panelTop + panelHeight > window.innerHeight) {
+        panelTop = window.innerHeight - panelHeight - 20;
+    }
+
+    // Evitar que el panel se desborde por la izquierda o la parte superior
+    if (panelLeft < 0) {
+        panelLeft = 20; // Asegurar que el panel no se desborde por la izquierda
+    }
+    if (panelTop < 0) {
+        panelTop = 20; // Asegurar que el panel no se desborde por la parte superior
+    }
+
+    // Establecer la posición final del panel
+    infoPanel.style.left = `${panelLeft}px`;
+    infoPanel.style.top = `${panelTop}px`;
+}
+
 
 // Manejo del mouse
 function handleMouseDown(e) {

@@ -1,16 +1,10 @@
 * {
     border: 0; /* Elimina cualquier borde por defecto */
+    box-sizing: border-box; /* Para asegurar que el padding no afecte el tamaño total */
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-}
 html, body {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     margin: 0; /* Eliminar márgenes predeterminados */
     padding: 0; /* Eliminar rellenos predeterminados */
@@ -19,26 +13,46 @@ html, body {
     overflow: hidden; /* Evita que el contenido se desborde */
 }
 
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh; /* Asegura que el contenedor ocupe toda la altura */
+    padding: 20px;
+    position: relative;
+}
+
 /* Contenido principal */
 main {
     padding: 10px;
     flex: 1;
-    background: linear-gradient(135deg, #4a0f67, #6a1b9a, #8c2eb8);
+    background: linear-gradient(135deg, #4a0f67, #6a1b9a, #8c2eb8); /* Fondo morado extendido */
     display: flex;
     flex-direction: column;
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    overflow: hidden; /* Evita desplazamientos innecesarios */
+    position: relative; /* Asegura que todo el fondo se vea correctamente */
 }
-.scene{
+
+/* Estilo de la escena */
+.scene {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 90vh; /* Asegura que la escena ocupe toda la altura visible */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; /* Evita que los elementos dentro de la escena se desborden */
     transition: transform 0.5s ease-in-out;
+    background: #111; /* Fondo oscuro para que el cubo resalte */
+    padding: 20px;
+    border-radius: 20px; /* Bordes redondeados en el contenedor */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7); /* Sombra del contenedor */
 }
 
-.cube{
+/* El cubo */
+.cube {
     width: 100px;
     height: 100px;
     position: relative;
@@ -48,6 +62,7 @@ main {
     z-index: 10; /* Asegurar que el cubo esté por encima del panel */
 }
 
+/* Estilo para las caras del cubo */
 .face {
     position: absolute;
     width: 200%;
@@ -93,14 +108,14 @@ main {
     font-weight: normal;
 }
 
-/* Añadir botón de cerrar en el panel (opcional) */
+/* Añadir botón de cerrar en el panel */
 .info-panel {
     display: none; /* Escondemos el panel al principio */
     position: fixed;
     top: 50%; /* Centrado vertical */
     right: 20px; /* Alineado a la derecha */
     width: 300px;
-    background-color: #4A2A68; /* Fondo negro semi-transparente */
+    background-color: #4A2A68; /* Fondo oscuro */
     color: white; /* Letras en blanco */
     padding: 10px;
     border-radius: 10px; /* Bordes redondeados */
@@ -132,7 +147,7 @@ main {
     line-height: 1.5;
 }
 
-
+/* Panel oculto */
 .info-panel.panel-hidden {
     transform: translateX(100%); /* Esconde el panel */
 }
@@ -175,8 +190,7 @@ main {
     background-color: transparent; /* Sin color de fondo al pasar el ratón */
 }
 
-
-.header{
+.header {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -184,9 +198,9 @@ main {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 
-.card-content{
+.card-content {
     display: none;
-    font-family: 'arial', sans-serif;
+    font-family: 'Arial', sans-serif;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
@@ -197,14 +211,15 @@ main {
     margin-top: 10px;
 }
 
-.face.active .card-content{
+.face.active .card-content {
     display: block;
 }
 
-.face:hover{
+.face:hover {
     background: initial;
     cursor: pointer;
 }
+
 /* Texto dentro de las caras */
 .face {
     font-family: 'Roboto', sans-serif;
@@ -212,40 +227,6 @@ main {
     font-weight: normal;
     color: white;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-}
-
-/* Estilo de la escena */
-.scene {
-    background: #111; /* Fondo oscuro para que el cubo resalte */
-    padding: 20px;
-    border-radius: 20px; /* Bordes redondeados en el contenedor */
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7); /* Sombra del contenedor */
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}
-
-footer ul {
-    list-style-type: none;
-}
-
-footer ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-footer ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
-footer ul li a:hover {
-    color: #f39c12;
 }
 
 /* Animación de rotación (actualizada) */
