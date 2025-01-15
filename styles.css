@@ -35,7 +35,7 @@ main {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transition: transform 0.5 ease-in-out;
+    transition: transform 0.5s ease-in-out;
 }
 
 .cube{
@@ -93,46 +93,88 @@ main {
     font-weight: normal;
 }
 
-/* Estilo del panel de información */
+/* Añadir botón de cerrar en el panel (opcional) */
 .info-panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: #f4f4f4;
-    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
-    transform: translateX(100%); /* Oculto fuera del contenedor */
-    transition: transform 0.5s ease;
-    z-index: 5; /* Detrás del cubo inicialmente */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
+    display: none; /* Escondemos el panel al principio */
+    position: fixed;
+    top: 50%; /* Centrado vertical */
+    right: 20px; /* Alineado a la derecha */
+    width: 300px;
+    background-color: #4A2A68; /* Fondo negro semi-transparente */
+    color: white; /* Letras en blanco */
+    padding: 10px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: #4A2A68; /* Sombra para un mejor efecto */
+    transform: translateY(-50%); /* Centra el panel verticalmente */
+    overflow-y: auto;
+    max-height: 80%; /* Evita que el panel se salga de la pantalla si el contenido es muy largo */
 }
 
+/* Panel activo (cuando se muestra) */
 .info-panel.panel-active {
-    transform: translateX(0); /* Mueve el panel a la vista */
+    display: block;
 }
+
+/* Contenido dentro del panel */
+.info-content {
+    padding: 10px;
+    background-color: #271835; /* Fondo púrpura oscuro */
+    border-radius: 5px; /* Bordes internos redondeados */
+}
+
+/* Estilos para el contenido de las caras */
+.face .header {
+    font-weight: bold;
+}
+
+.card-content p {
+    margin: 0;
+    line-height: 1.5;
+}
+
 
 .info-panel.panel-hidden {
     transform: translateX(100%); /* Esconde el panel */
 }
 
-/* Añadir botón de cerrar en el panel (opcional) */
-.close-btn {
-    margin-top: auto;
-    align-self: flex-end;
-    padding: 10px 20px;
-    background: #6a1b9a;
-    color: white;
+/* Botón de cierre dentro del panel */
+.info-panel .close-btn {
+    position: absolute; /* Posición fija respecto al panel */
+    top: 10px; /* Espaciado desde la parte superior */
+    right: 10px; /* Espaciado desde el borde derecho */
+    width: 30px; /* Tamaño del botón */
+    height: 30px; /* Tamaño del botón */
+    background-color: transparent; /* Sin fondo */
     border: none;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centrar la cruz */
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.close-btn:hover {
-    background: #52117b;
+.info-panel .close-btn::before,
+.info-panel .close-btn::after {
+    content: '';
+    position: absolute;
+    width: 18px; /* Grosor de las líneas */
+    height: 2px; /* Altura de las líneas */
+    background-color: black; /* Color negro para la cruz */
+    border-radius: 2px;
 }
+
+.info-panel .close-btn::before {
+    transform: rotate(45deg); /* Línea diagonal (parte superior izquierda a inferior derecha) */
+}
+
+.info-panel .close-btn::after {
+    transform: rotate(-45deg); /* Línea diagonal (parte superior derecha a inferior izquierda) */
+}
+
+.info-panel .close-btn:hover {
+    background-color: transparent; /* Sin color de fondo al pasar el ratón */
+}
+
 
 .header{
     font-family: 'Roboto', sans-serif;
