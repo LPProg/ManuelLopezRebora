@@ -11,7 +11,9 @@
 </head>
 <body>
          <!-- Contenido Principal -->
-        <main>
+    <main>
+
+        <div class="container">
             <div class="scene">
                 <div class="cube">
                     <div class="face front" onclick="flipcard('front')">
@@ -54,8 +56,14 @@
                             </div>
                     </div>
                 </div>
+                  <!-- Panel de Información -->
+                <div class="info-panel panel-hidden">
+                    <div class="info-content"></div>
+                        <button class="close-btn" onclick="closePanel()">Close</button>
+                </div>
+        </div>
             </div>
-        </main>
+    </main>
         
 <!-- Footer -->
   <footer>

@@ -2,123 +2,40 @@
     border: 0; /* Elimina cualquier borde por defecto */
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0; /* Eliminar márgenes predeterminados */
     padding: 0; /* Eliminar rellenos predeterminados */
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     overflow: hidden; /* Evita que el contenido se desborde */
 }
 
-/* Estilo base del sidebar */
-.sidebar {
-    position: fixed;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    background: linear-gradient(to bottom, #2f2f2f, #1e1e1e, #141414);
-    padding-top: 20px;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centramos los botones verticalmente */
-    z-index: 1000;
-}
-
-/* Estilo para los elementos de la lista (el contenedor del botón) */
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 75%; /* Aseguramos que los botones ocupen el ancho completo */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra los botones horizontalmente */
-    justify-content: center;
-}
-
-/* Estilo del botón */
-.sidebar .button {
-    display: block;
-    width: 200px; /* Aumento del tamaño del botón */
-    height: 60px; /* Aumento de la altura del botón */
-    background-color: #6a1b9a;
-    color: transparent; /* El color del texto será transparente inicialmente */
-    padding: 15px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.5s ease;
-    perspective: 1000px; /* Hacer el contenedor en 3D */
-    margin-bottom: 20px; /* Espacio entre los botones */
-}
-
-/* El contenedor que envuelve icono y texto */
-.sidebar .button .icon,
-.sidebar .button .text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.3s ease;
-}
-
-/* El texto está oculto por defecto */
-.sidebar .button .text {
-    opacity: 0;
-    color: white;
-    font-size: 20px; /* Aumento del tamaño del texto */
-}
-
-/* Efecto flip cuando el ratón pasa por encima del botón */
-.sidebar .button:hover {
-    transform: rotateY(180deg); /* Flip 3D en el eje Y */
-}
-
-.sidebar .button:hover .icon {
-    opacity: 0; /* Oculta el ícono cuando se hace el flip */
-}
-
-.sidebar .button:hover .text {
-    opacity: 1; /* Muestra el texto cuando se hace el flip */
-    transform: rotateY(180deg); /* Flip 3D en el eje Y */
-}
-
-/* Icono dentro del botón */
-.sidebar .button .icon i {
-    font-size: 30px; /* Aumento del tamaño del ícono */
-    color: white;
-    transition: opacity 0.3s ease;
-}
-
 /* Contenido principal */
 main {
-    margin-left: 250px ; /* Margen izquierdo para el sidebar */
-    padding: 20px;
+    padding: 10px;
     flex: 1;
     background: linear-gradient(135deg, #4a0f67, #6a1b9a, #8c2eb8);
     display: flex;
     flex-direction: column;
 }
 .scene{
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px;
+    overflow: hidden;
+    transition: transform 0.5 ease-in-out;
 }
 
 .cube{
@@ -128,6 +45,7 @@ main {
     transform-style: preserve-3d;
     animation: rotate 10s infinite linear;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 10; /* Asegurar que el cubo esté por encima del panel */
 }
 
 .face {
@@ -173,6 +91,47 @@ main {
     color: white;
     font-size: 18px;
     font-weight: normal;
+}
+
+/* Estilo del panel de información */
+.info-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #f4f4f4;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%); /* Oculto fuera del contenedor */
+    transition: transform 0.5s ease;
+    z-index: 5; /* Detrás del cubo inicialmente */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.info-panel.panel-active {
+    transform: translateX(0); /* Mueve el panel a la vista */
+}
+
+.info-panel.panel-hidden {
+    transform: translateX(100%); /* Esconde el panel */
+}
+
+/* Añadir botón de cerrar en el panel (opcional) */
+.close-btn {
+    margin-top: auto;
+    align-self: flex-end;
+    padding: 10px 20px;
+    background: #6a1b9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #52117b;
 }
 
 .header{
@@ -222,7 +181,6 @@ main {
 }
 
 footer {
-    margin-left: 150px;
     background-color: #333;
     color: white;
     text-align: center;
