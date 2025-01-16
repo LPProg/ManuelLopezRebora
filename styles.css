@@ -143,9 +143,24 @@ html, body {
     background-color: #bbb;
 }
 
-.social {
+/* Estilo de la sección de redes sociales */
+.social-media {
+    position: fixed; /* Posición fija */
+    bottom: 20px; /* Desde el fondo */
+    right: 20px;  /* Desde la derecha */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    gap: 10px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.8);  /* Fondo oscuro */
+    border-radius: 10px;  /* Bordes redondeados */
+}
+
+.social-media a {
+    color: #fff;  /* Color de los íconos */
+    font-size: 30px;  /* Tamaño de los íconos */
+    transition: color 0.3s ease;  /* Animación suave al hacer hover */
+}
+
+.social-media a:hover {
+    color: #0073b1;  /* Color al pasar el mouse (puedes cambiarlo a cualquier color) */
 }
