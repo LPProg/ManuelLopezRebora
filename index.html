@@ -4,76 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <!-- Añadimos link para usar iconos para las redes sociales de Font-Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
     <title>My Portfolio</title>
 </head>
 <body>
-         <!-- Contenido Principal -->
     <main>
-
         <div class="container">
             <div class="scene">
                 <div class="cube">
-                    <div class="face front" onclick="flipcard('front')">
+                    <!-- Caras del cubo -->
+                    <div class="face front" onclick="handleClick(event, 'front')">
                         <div class="header">Manuel López Rébora</div>
-                            <div class="card-content">
-                                <h2>Fullstack Engineer</h2>
-                                <p>Continous learning to improve myself.</p>
-                            </div>
+                        <div class="card-content">
+                            <h2>Fullstack Engineer</h2>
+                            <p>Continous learning to improve myself.</p>
+                        </div>
                     </div>
-                    <div class="face right" onclick="flipcard('right')">
+                    <div class="face right" onclick="handleClick(event, 'right')">
                         <div class="header">About Me</div>
-                            <div class="card-content">
-                                <p>Hi! I’m Manuel López Rébora, a passionate developer from Málaga, born in 1993. Since I was a child, I’ve been fascinated by video games and programming, which led me to pursue a career in software development. This journey brought me to specialize in cross-platform app development, where I continue to grow and learn every day.
-                                In addition to my work as a developer, I am also a multi-adventure instructor, which allows me to bring creativity and problem-solving skills into everything I do. I’m always updating my knowledge and skills, staying on top of the latest technologies and trends in the industry.
-                              I’m excited about the future and the opportunities to create innovative and meaningful digital experiences!</p>
-                            </div>
-                    </div>
-                    <div class="face back" onclick="flipcard('back')">
-                        <div class="header">Projects</div>
-                            <div class="card-content">
-                                <p>Explora mis proyectos.</p>
-                            </div>
-                    </div>
-                    <div class="face left" onclick="flipcard('left')">
-                        <div class="header">Experience</div>
-                            <div class="card-content">
-                                <p>Mis empleos</p>
-                            </div>
-                    </div>
-                    <div class="face top" onclick="flipcard('top')">
-                        <div class="header">Photo</div>
-                            <div class="card-content">
-                                <p>Foto mia</p>
-                            </div>
-                    </div>
-                    <div class="face bottom" onclick="flipcard('bottom')">
-                        <div class="header">Contact</div>
-                            <div class="card-content">
-                                <p>Contactame</p>
-                            </div>
-                    </div>
-                </div>
-                  <!-- Panel de Información -->
-                <div class="info-panel panel-hidden">
-                    <div class="info-content"></div>
-                        <button class="close-btn" onclick="closePanel()"></button>
-                </div>
-        </div>
-            </div>
-    </main>
-        
-<!-- Footer
-  <footer>
-    <ul>
-        <li><a href="https://www.linkedin.com/in/manuel-lopez-rebora/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-        <li><a href="https://www.threads.net/@manotricker" target="_blank"><i class="fab fa-instagram"></i> Threads</a></li>
-        <li><a href="https://github.com/LPProg" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-    </ul>
-  </footer> -->
+                        <div class="card-content">
+                            <p>Hi! I’m Manuel López Rébora, a passionate developer from Málaga, born in 1993. Since I was a child, I’ve been fascinated by video games and programming, which led me to pursue a career in software development. This journey brought me to specialize in cross-platform app development, where I continue to grow and learn every day.
 
-  <script src="script.js"></script>
+                                In addition to my work as a developer, I am also a multi-adventure instructor, which allows me to bring creativity and problem-solving skills into everything I do. I’m always updating my knowledge and skills, staying on top of the latest technologies and trends in the industry.
+                                
+                                I’m excited about the future and the opportunities to create innovative and meaningful digital experiences!</p>
+                        </div>
+                    </div>
+                    <div class="face back" onclick="handleClick(event, 'back')">
+                        <div class="header">Projects</div>
+                        <div class="card-content">
+                            <p>Explora mis proyectos.</p>
+                        </div>
+                    </div>
+                    <div class="face left" onclick="handleClick(event, 'left')">
+                        <div class="header">Experience</div>
+                        <div class="card-content">
+                            <p>Mis empleos</p>
+                        </div>
+                    </div>
+                    <div class="face top" onclick="handleClick(event, 'top')">
+                        <div class="header">Photo</div>
+                        <div class="card-content">
+                            <p>Foto mia</p>
+                        </div>
+                    </div>
+                    <div class="face bottom" onclick="handleClick(event, 'bottom')">
+                        <div class="header">Contact</div>
+                        <div class="card-content">
+                            <p>Contactame</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-panel">
+                <div class="info-content"></div>
+                <button class="close-btn" onclick="closePanel()">X</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,19 +1,14 @@
 let isMouseDown = false;
-let lastClickTime = 0;
-let clickThreshold = 300;
 let lastMousePosition = { x: 0, y: 0 };
-
 const cube = document.querySelector('.cube');
-const infoPanel = document.querySelector('.info-panel');
 let currentRotationX = 0;
 let currentRotationY = 0;
-let currentFace = '';
-let cubePosition = { x: 0, y: 0 };
-let isFaceExpanded = false; // Controla si la cara está expandida
+let currentFace = 'right';
+let isFaceExpanded = false;
 
 // Función para manejar la rotación del cubo con el mouse
 function rotateCube(e) {
-    if (!isMouseDown) return;
+    if (!isMouseDown || isFaceExpanded) return;
 
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -21,138 +16,67 @@ function rotateCube(e) {
     const deltaX = mouseX - lastMousePosition.x;
     const deltaY = mouseY - lastMousePosition.y;
 
-    currentRotationX += deltaY * 0.5;
-    currentRotationY -= deltaX * 0.5;
+    currentRotationX += deltaY * 1.0;
+    currentRotationY -= deltaX * 1.0;
 
-    cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg) translateX(-50px)`;
+    cube.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
 
     lastMousePosition = { x: mouseX, y: mouseY };
 }
 
-// Función para manejar clics en las caras
-function handleClick(e, face) {
-    const currentTime = Date.now();
-    const timeDifference = currentTime - lastClickTime;
-
-    if (timeDifference < clickThreshold) {
-        if (currentFace === face) {
-            if (isFaceExpanded) {
-                flipFace(face); // Si la cara está expandida, hacer el flip y mostrar contenido
-            }
-        } else {
-            expandFace(face); // Expandir la cara seleccionada
-        }
-    }
-    lastClickTime = currentTime;
+// Mostrar el contenido dentro del panel cuando se hace clic en una cara
+function handleClick(event, face) {
+    const panel = document.querySelector('.info-panel');
+    const content = document.querySelector('.info-content');
+    
+    panel.classList.add('show');
+    
+    content.innerHTML = getContentForFace(face);
 }
 
-// Expandir la cara seleccionada
+// Función para expandir la cara seleccionada
 function expandFace(face) {
     const faceElement = document.querySelector(`.cube .face.${face}`);
-    faceElement.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-    faceElement.style.transform = 'scale(1.75) translate(-50%, -50%)'; // Ampliar al 75% y centrar
-    faceElement.style.position = 'fixed';
-    faceElement.style.top = '50%';
-    faceElement.style.left = '50%';
-    faceElement.style.width = '75%';
-    faceElement.style.height = '75%';
-    faceElement.style.zIndex = '100'; // Asegurar que esté encima
-
-    // Ocultar las otras caras
-    document.querySelectorAll('.cube .face').forEach(otherFace => {
-        if (otherFace !== faceElement) {
-            otherFace.style.opacity = '0';
-        }
-    });
-
+    document.querySelector('.info-panel').classList.add('show');
+    const infoContent = document.querySelector('.info-content');
+    infoContent.innerHTML = getContentForFace(face);
     currentFace = face;
-    isFaceExpanded = true;
 }
 
-// Flip de la cara seleccionada
-function flipFace(face) {
-    const faceElement = document.querySelector(`.cube .face.${face}`);
-    faceElement.style.transition = 'transform 0.6s ease';
-    faceElement.style.transform = 'rotateY(180deg)'; // Girar la cara
-
-    // Mostrar contenido después del flip
-    setTimeout(() => {
-        showContent(face);
-    }, 300);
+// Cerrar el panel
+function closePanel() {
+    const panel = document.querySelector('.info-panel');
+    panel.classList.remove('show');
 }
 
-// Mostrar contenido dinámico de la cara
-function showContent(face) {
-    const content = getContentForFace(face);
-    infoPanel.querySelector('.info-content').innerHTML = content;
-
-    infoPanel.classList.add('panel-active');
-    infoPanel.classList.remove('panel-hidden');
-}
-
-// Cerrar la cara seleccionada
-function closeFace() {
-    const faceElement = document.querySelector(`.cube .face.${currentFace}`);
-    faceElement.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-    faceElement.style.transform = ''; // Volver a la escala y posición originales
-    faceElement.style.position = '';
-    faceElement.style.top = '';
-    faceElement.style.left = '';
-    faceElement.style.width = '';
-    faceElement.style.height = '';
-    faceElement.style.zIndex = '';
-
-    // Restaurar las otras caras
-    document.querySelectorAll('.cube .face').forEach(otherFace => {
-        otherFace.style.opacity = '1';
-        otherFace.style.transform = '';
-    });
-
-    isFaceExpanded = false;
-    currentFace = '';
-}
-
-// Función para obtener el contenido de cada cara
+// Obtener el contenido correspondiente a cada cara
 function getContentForFace(face) {
     switch (face) {
         case 'front':
-            return '<h2>Frente</h2><p>Información sobre la sección frontal.</p>';
+            return '<h2>Fullstack Engineer</h2><p>Continous learning to improve myself.</p>';
         case 'right':
-            return '<h2>Derecha</h2><p>Información sobre la sección derecha.</p>';
+            return '<h2>About Me</h2><p>Hi! I’m Manuel López Rébora, a passionate developer from Málaga...</p>';
         case 'back':
-            return '<h2>Atrás</h2><p>Información sobre la sección de atrás.</p>';
+            return '<h2>Projects</h2><p>Explora mis proyectos.</p>';
         case 'left':
-            return '<h2>Izquierda</h2><p>Información sobre la sección izquierda.</p>';
+            return '<h2>Experience</h2><p>Mis empleos.</p>';
         case 'top':
-            return '<h2>Arriba</h2><p>Información sobre la sección superior.</p>';
+            return '<h2>Photo</h2><p>Foto mia.</p>';
         case 'bottom':
-            return '<h2>Abajo</h2><p>Información sobre la sección inferior.</p>';
+            return '<h2>Contact</h2><p>Contactame.</p>';
         default:
-            return '<h2>Información</h2><p>Seleccione una cara del cubo.</p>';
+            return '<h2>Información</h2><p>Selecciona una cara del cubo.</p>';
     }
 }
 
-// Manejo del mouse
-function handleMouseDown(e) {
+// Event listeners para la rotación del cubo
+document.addEventListener('mousedown', (e) => {
     isMouseDown = true;
     lastMousePosition = { x: e.clientX, y: e.clientY };
-}
+});;
 
-function handleMouseUp() {
+document.addEventListener('mousemove', rotateCube);
+
+document.addEventListener('mouseup', () => {
     isMouseDown = false;
-}
-
-function handleMouseMove(e) {
-    rotateCube(e);
-}
-
-// Eventos
-document.querySelectorAll('.face').forEach(face => {
-    face.addEventListener('click', e => handleClick(e, face.classList[1]));
-});
-
-document.querySelector('.scene').addEventListener('mousedown', handleMouseDown);
-document.querySelector('.scene').addEventListener('mouseup', handleMouseUp);
-document.querySelector('.scene').addEventListener('mousemove', handleMouseMove);
-
-infoPanel.addEventListener('click', closeFace); // Cerrar la cara al hacer clic en el panel
+});;
