@@ -10,7 +10,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background-color: lightblue;
     color: #333;
     display: flex;
     justify-content: center;
@@ -33,13 +33,14 @@ html, body {
 .scene {
     position: relative;
     top: 50%;
+    left: 380px;
     transform: translateY(-50%); /* Centrado vertical */
     width: 175px;
     height: 290px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background: navy;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
@@ -58,11 +59,12 @@ html, body {
     position: absolute;
     width: 200px;
     height: 200px;
-    background-color: #e0e0e0;
+    background-color: rgb(41, 41, 190);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    color: white;
     text-align: center;
     border-radius: 10px;
     transition: transform 0.5s ease, opacity 0.5s ease;
@@ -81,7 +83,7 @@ html, body {
 .header {
     font-weight: bold;
     font-size: 22px;
-    color: #333;
+    color: whitesmoke;
 }
 
 /* Contenido de las caras */
@@ -134,9 +136,16 @@ html, body {
 /* Cambios visuales en el hover de las caras */
 .face:hover {
     cursor: pointer;
-    background-color: #d0d0d0;
+    background-color: rgb(89, 89, 198);
 }
 
 .face.active {
     background-color: #bbb;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
