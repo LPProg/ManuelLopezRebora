@@ -40,7 +40,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: navy;
+    background: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
@@ -59,7 +59,7 @@ html, body {
     position: absolute;
     width: 200px;
     height: 200px;
-    background-color: rgb(41, 41, 190);
+    background-color: #0073b1;
     display: flex;
     justify-content: center;
     align-items: center;
