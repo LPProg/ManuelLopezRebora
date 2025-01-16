@@ -5,6 +5,7 @@ let currentRotationX = 0;
 let currentRotationY = 0;
 let currentFace = 'right';
 let isFaceExpanded = false;
+const welcomeMessage = document.querySelector('.welcome-message'); // Seleccionamos el mensaje de bienvenida
 
 // Función para manejar la rotación del cubo con el mouse
 function rotateCube(e) {
@@ -24,13 +25,20 @@ function rotateCube(e) {
     lastMousePosition = { x: mouseX, y: mouseY };
 }
 
-// Mostrar el contenido dentro del panel cuando se hace clic en una cara
+// Función para manejar el clic en las caras del cubo
 function handleClick(event, face) {
     const panel = document.querySelector('.info-panel');
     const content = document.querySelector('.info-content');
-    
+
+    // Ocultar el mensaje de bienvenida
+    if (welcomeMessage) {
+        welcomeMessage.style.display = 'none';  // Ocultar el mensaje
+    }
+
+    // Mostrar el panel de información
     panel.classList.add('show');
-    
+
+    // Rellenar el contenido de la cara en el panel
     content.innerHTML = getContentForFace(face);
 }
 
@@ -46,6 +54,12 @@ function expandFace(face) {
 // Cerrar el panel
 function closePanel() {
     const panel = document.querySelector('.info-panel');
+
+    // Volver a mostrar el mensaje de bienvenida al cerrar el panel
+    if (welcomeMessage) {
+        welcomeMessage.style.display = 'block';  // Mostrar el mensaje nuevamente
+    }
+
     panel.classList.remove('show');
 }
 
@@ -73,10 +87,20 @@ function getContentForFace(face) {
 document.addEventListener('mousedown', (e) => {
     isMouseDown = true;
     lastMousePosition = { x: e.clientX, y: e.clientY };
-});;
+});
 
 document.addEventListener('mousemove', rotateCube);
 
 document.addEventListener('mouseup', () => {
     isMouseDown = false;
-});;
+});
+
+// Asignar la acción de abrir el panel al hacer clic en las caras
+document.querySelectorAll('.face').forEach(face => {
+    face.addEventListener('click', (e) => {
+        handleClick(e, face.classList[1]);
+    });
+});
+
+// Asignar el cierre del panel
+document.querySelector('.close-btn').addEventListener('click', closePanel);

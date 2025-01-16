@@ -15,6 +15,33 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+.welcome-message {
+    display: flex;
+    flex-direction: column;  /* Asegura que el contenido se apile verticalmente */
+    align-items: center;  /* Centra el contenido horizontalmente */
+    justify-content: center;  /* Centra el contenido verticalmente */
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 10px;
+    width: 60%;  /* Mantiene el contenedor en un 60% del ancho */
+    max-width: 1200px;  /* Máximo ancho de 1200px */
+    height: 80vh;  /* Ocupa un 80% de la altura de la ventana */
+    margin: 10vh 0;  /* Márgenes de 10vh (10% de la altura de la ventana) arriba y abajo */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.welcome-message h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.welcome-message p {
+    font-size: 1.1rem;
 }
 
 /* Contenedor principal */
@@ -31,10 +58,10 @@ html, body {
 
 /* Sección del cubo */
 .scene {
-    position: relative;
-    top: 50%;
-    left: 380px;
-    transform: translateY(-50%); /* Centrado vertical */
+    position: fixed;  /* Mantiene la escena fija en la pantalla */
+    top: 50%;  /* Centrado verticalmente */
+    right: 120px;  /* Fija el cubo en el lado derecho de la pantalla */
+    transform: translateY(-50%); /* Lo centra verticalmente respecto a la pantalla */
     width: 175px;
     height: 290px;
     display: flex;
