@@ -95,9 +95,9 @@ html, body {
 /* Sección del cubo */
 .scene {
     position: fixed;  /* Mantiene la escena fija en la pantalla */
-    top: 50%;  /* Centrado verticalmente */
+    top:25%;  /* Centrado verticalmente */
     right: 120px;  /* Fija el cubo en el lado derecho de la pantalla */
-    transform: translateY(-50%); /* Lo centra verticalmente respecto a la pantalla */
+    transform: translateY(-50%);  /* Centra la escena verticalmente */
     width: 175px;
     height: 290px;
     display: flex;
@@ -106,6 +106,8 @@ html, body {
     background: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    /* Animación para el cubo al aparecer */
+    animation: cubeAppearance 2.5s ease-out forwards;
 }
 
 /* Estilo del cubo */
@@ -115,6 +117,24 @@ html, body {
     position: fixed;
     transform-style: preserve-3d;
     transition: transform 2s ease;
+}
+
+/* Animación del cubo */
+@keyframes cubeAppearance {
+    0% {
+        transform: scale(-1);  /* Empieza como un punto negro (escala 0) */
+        background-color: black;  /* Comienza negro */
+        opacity: 0;  /* Comienza invisible */
+    }
+    50% {
+        transform: scale(2);  /* Aumenta su tamaño (escala 2) */
+        opacity: 0.5;  /* Se hace parcialmente visible */
+    }
+    100% {
+        transform: scale(1);  /* Vuelve a su tamaño original (escala 1) */
+        opacity: 1;  /* Se hace completamente visible */
+        background-color: rgba(0, 0, 0, 0.8);  /* Cambia a color final */
+    }
 }
 
 /* Caras del cubo */
