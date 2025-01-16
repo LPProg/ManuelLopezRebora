@@ -80,8 +80,39 @@ main {
     backface-visibility: hidden; /* Ocultar la cara posterior del cubo */
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4); /* Sombra para darle profundidad */
     overflow: hidden; /* Evitar que el contenido se desborde */
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
 }
 
+.face.flipped {
+    transform: rotateY('180deg');
+}
+
+.face.card-content {
+    display: none;
+    backface-visibility: hidden;
+}
+
+.face.flipped .card-content {
+    display: block; /* Mostrar el contenido cuando la cara está girada */
+}
+
+/* Ajustar escala para las caras al expandirse */
+.face.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 75%; /* Ampliar a 75% del viewport */
+    height: 75%; /* Ampliar a 75% del viewport */
+    z-index: 1000;
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg); /* Centrar y mantener recta */
+    transition: all 0.6s ease-in-out;
+}
+
+.cube.hidden {
+    display: none;
+}
 /* Posicionamiento de las caras */
 .front {
     transform: rotateY(0deg) translateZ(150px); /* Frente */
